@@ -1,0 +1,40 @@
+.print > * {
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+.print:hover > * {
+    background-color: transparent !important;
+}
+.print .content > div {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    padding: 10px;
+    margin: 10px;
+}
+@media print {
+    header {
+        display: inline;
+        display: none;
+        float: none;
+        overflow: visible;
+    }
+    .print {
+        width: 100vw;
+    }
+    .printBreak {
+        page-break-after:always;
+        break-after: page;
+    }
+    .printShow {
+        display: inline; 
+        overflow: visible;
+        float: none
+    }
+    html, body {
+        display: inline;
+        float: none;
+        overflow: visible;
+    }
+}

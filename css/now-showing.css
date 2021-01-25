@@ -1,0 +1,32 @@
+.map-content {
+    flex-direction: column;
+}
+.showing-block > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+.map-content .map {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.map-content .map > * {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.map-content .map .img-cont{
+    box-shadow: 0 0 5px 2px rgb(238, 238, 238);
+    border-radius: 10px;
+    width: 50%;
+    overflow: hidden;
+}
+.map-content .map img {
+    filter: blur(5px);
+    width: 100%;
+    transition: all 0.2s;
+}
+.map-content .map img:hover {
+    filter: blur(0);
+}

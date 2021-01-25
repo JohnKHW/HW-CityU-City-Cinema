@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/webpage.css" rel="stylesheet" type="text/css">
+    <script src="javascript/movies.js"></script>
+    <script src="https://courses.cs.cityu.edu.hk/cs2204/cw3/cinemas.js"></script>
+    <script src="javascript/dataformat.js"></script>
+    <title>Now Showing - City Cinema</title>
+</head>
+
+<body>
+    <header>
+        <h1>City<img src="./asset/filmreel.png" alt="city cinema" />Cinema</h1>
+        <hr />
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li>
+                    <a href="./now-showing.html" class="disable">Now Showing</a>
+                </li>
+                <li>
+                    <a href="./ticket.html">Ticket</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="block showing-block">
+            <span class="title"><b>Now Showing</b></span>
+            <div>
+                <span>Select Cinema: </span>
+                <select name="cinema" id="cinemas" onchange="changeLoc(this.options[this.selectedIndex].value)">
+                </select>
+            </div>
+            <div id="movies-list">
+            </div>
+        </div>
+        <div class="content map-content">
+            <div class="nav">
+                <h2 class="title">Cinema Locations</h2>
+                <div class="btn-group">
+                    <a href="#festival_walk" class="btn">Festival Walk</a>
+                    <a href="#langham_place" class="btn">Langham Place</a>
+                    <a href="#mega_box" class="btn">MegaBox</a>
+                </div>
+                <span>For any enquiries, please contact 3442-7654</span>
+            </div>
+            <div id="festival_walk" class="map">
+                <h4 class="title">Festival Walk</h4>
+                <div class="img-cont">
+                    <img src="./asset/festival_walk.png" alt="festival_walk map" />
+                </div>
+                <span>Address: Level UG, Festival Walk, 80, Tat Chee Avenue, Sham Shui Po</span>
+            </div>
+            <div id="langham_place" class="map">
+                <h4 class="title">Langham Place</h4>
+                <div class="img-cont">
+                    <img src="./asset/langham_place.png" alt="langham_place map" />
+                </div>
+                <span>Address: Level 8-11, Langham Place Mall, 8 Argyle Street, Mong Kok</span>
+            </div>
+            <div id="mega_box" class="map">
+                <h4 class="title">MegaBox</h4>
+                <div class="img-cont">
+                    <img src="./asset/mega_box.png" alt="mega_box map" />
+                </div>
+                <span>Address: Level 11, MegaBox, 38 Wang Chiu Road, Kowloon Bay</span>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <span>Copyright©2020- City Cinema.</span>
+        <span><i>All right reserved.</i></span>
+        <br />
+        <span><a href="./index.html">Home</a> | <a href="./design.html">Design</a></span>
+    </footer>
+    <script>
+        const cinemas = getCinemas();
+        var currSelect = 0;
+        var currData = dataFormat(currSelect);
+        var element_movieslist = document.getElementById("movies-list");
+        loadCinemas();
+        loadMovies();
+        
+        function loadCinemas() {
+            const element_cinemas = document.getElementById("cinemas");
+            for (let i = 0; i < cinemas.length; ++i) {
+                element_cinemas.innerHTML += `<option value="${ i }">${ cinemas[i].branchName }</option>`;
+            }
+        }
+
+        function loadMovies() {
+            element_movieslist.innerHTML = ``;
+            for (let i = 0; i < currData.length; ++i) {
+                element_movieslist.innerHTML += TicketComponent(currData[i]);
+            }
+        }
+
+        function changeLoc(index) {
+            currSelect = index;
+            currData = dataFormat(currSelect);
+            loadMovies();
+        }
+
+        function TicketComponent(data) {
+            let template =
+                `<form action="ticket.html" method="GET" class="card">
+                <img src="./asset/${ data.thumbnail }" alt="${ data.name } icon" class="thumbnail" />
+                <div class="info">
+                    <input type="hidden" name="movie" value="${ data.name }" />
+                    <input type="text" value="${ data.name }" name="movie" class="title" disabled />
+                    <div class="type">Date & Time:</div>
+                    <select name="index" class="data">`;
+            template += TicketTime(data.sessions);
+            template += `</select>
+                    <input type="submit" value="Buy Ticket" class="btn" />
+                </div>
+            </form>`;
+            return template;
+        }
+
+        function TicketTime(data) {
+            let template;
+            for (let i = 0; i < data.length; ++i) {
+                template += `<optgroup label="House ${ data[i].house }">`;
+                for (let j = 0; j < data[i].times.length; ++j) {
+                    template += `<option value="${data[i].times[j].index}">${ data[i].times[j].datetime }</option>`;
+                }
+                template += `</optgroup>`;
+            }
+            return template;
+        }
+    </script>
+</body>
+
+</html>

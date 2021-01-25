@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/webpage.css" rel="stylesheet" type="text/css">
+    <script src="javascript/movies.js"></script>
+    <script src="https://courses.cs.cityu.edu.hk/cs2204/cw3/cinemas.js"></script>
+    <script src="javascript/dataformat.js"></script>
+    <title>Ticket - City Cinema</title>
+</head>
+
+<body>
+    <header>
+        <h1>City<img src="./asset/filmreel.png" alt="city cinema" />Cinema</h1>
+        <hr />
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li>
+                    <a href="./now-showing.html">Now Showing</a>
+                </li>
+                <li>
+                    <a href="./ticket.html" class="disable">Ticket</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="block">
+            <span class="title">Ticket Details</span>
+            <form action="print.html" method="GET">
+                <div class="content ticket-cont">
+                    <div>
+                        <label>Cinema</label>
+                        <span id="cinema">Festival Walk</span>
+                    </div>
+                    <div>
+                        <label>Movie</label>
+                        <span id="movie">Bigbuck</span>
+                    </div>
+                    <div>
+                        <label>Date & Time</label>
+                        <span id="datetime">19 March, Tue - 9:00 AM</span>
+                    </div>
+                    <div>
+                        <label>House</label>
+                        <span id="house">4</span>
+                    </div>
+                </div>
+                <div class="content seat">
+                    <div class="seat-cont">
+                        <table>
+                            <caption><b>SCREEN</b></caption>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="info">
+                            <span class="type">Seat Booked</span>
+                            <span id="booked"></span>
+                        </div>
+                        <input type="hidden" name="movie" id="movieName" />
+                        <input type="hidden" name="index" id="index" />
+                        <input type="hidden" name="seat" id="seat" />
+                        <input type="submit" value="Confirm" class="btn" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <span>Copyright©2020- City Cinema.</span>
+        <span><i>All right reserved.</i></span>
+        <br />
+        <span><a href="./index.html">Home</a> | <a href="./design.html">Design</a></span>
+    </footer>
+    <script>
+        localStorage.clear();
+        const queryString = getJson();
+        const data = getData();
+        const tformat = {
+            rname: 'A',
+            rl: 5,
+            cl: 5
+        }
+        let booked = [];
+        let bookedCont = document.getElementById('booked');
+        loadData();
+        loadSeatPlan();
+
+        function getData() {
+            let result = getResult(queryString.index);
+            if (result == undefined) {
+                window.location.replace("./index.html");
+            }
+            document.getElementById("movieName").setAttribute('value', queryString.movie);
+            document.getElementById("index").setAttribute('value', queryString.index);
+            return result;
+        }
+
+        function getJson() {
+            let url = new URL(document.location);
+            let params = url.search.substring(1);
+            if (params.length == 0) {
+                window.location.replace("./index.html");
+            }
+            let data = JSON.parse('{"' + params.replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ').replace(
+                /"/g, '"') + '"}', function (key, value) {
+                return key === "" ? value : decodeURIComponent(value)
+            });
+
+            return data
+        }
+
+        function submit() {
+            let XHR = new XMLHttpRequest();
+            let fd = new Form();
+            fd.append("cinema", data.branchName);
+            fd.append("movie", data.name);
+            fd.append("datetime", data.datetime);
+            fd.append("house", data.house);
+            fd.append("seat", booked);
+            XHR.open('GET', './ticket.html');
+            XHR.send(fd);
+        }
+
+        function loadData() {
+            let cinema = document.getElementById('cinema');
+            let movie = document.getElementById('movie');
+            let datetime = document.getElementById('datetime');
+            let house = document.getElementById('house');
+
+            cinema.innerHTML = data.branchName;
+            movie.innerHTML = data.name;
+            datetime.innerHTML = data.datetime;
+            house.innerHTML = data.house;
+
+            localStorage.setItem('cinema', data.branchName);
+            localStorage.setItem('movie', data.name);
+            localStorage.setItem('datetime', data.datetime);
+            localStorage.setItem('house', data.house);
+        }
+
+        function loadSeatPlan() {
+            document.getElementById('tbody').innerHTML = SeatPlanComponent(tformat);
+        }
+
+        function SeatPlanComponent(data) {
+            let rname = data.rname;
+            let template = '';
+            for (let i = 0; i < data.rl; ++i) {
+                template += `<tr><td>${ rname }</td>`;
+                for (let j = 0; j < data.cl; ++j) {
+                    template +=
+                        `<td><span id="${ rname + (j+1) }" class="btn btn-sel" onclick="selectSeat(this)">${ j+1 }</span></td>`;
+                }
+                template += `</tr>`;
+                rname = String.fromCharCode(rname.charCodeAt(0) + 1)
+            }
+            return template;
+        }
+
+        function selectSeat(seat) {
+            if (!booked.includes(seat.id)) {
+                seat.classList.toggle("selected");
+                booked.push(seat.id);
+            }
+            booked.sort();
+            bookedCont.innerHTML = '';
+            for (let i = 0; i < booked.length; i++) {
+                bookedCont.innerHTML += booked[i];
+                if (i < booked.length - 1) {
+                    bookedCont.innerHTML += ', ';
+                }
+            }
+            localStorage.setItem('seat', booked);
+            document.getElementById("seat").setAttribute('value', booked);
+
+        }
+
+        Array.prototype.remove = function () {
+            var what, a = arguments,
+                L = a.length,
+                ax;
+            while (L && this.length) {
+                what = a[--L];
+                while ((ax = this.indexOf(what)) !== -1) {
+                    this.splice(ax, 1);
+                }
+            }
+            return this;
+        };
+    </script>
+</body>
+
+</html>

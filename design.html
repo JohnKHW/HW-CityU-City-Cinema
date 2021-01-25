@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/webpage.css" rel="stylesheet" type="text/css">
+    <title>Design - City Cinema</title>
+</head>
+
+<body>
+    <header>
+        <h1>City<img src="./asset/filmreel.png" alt="city cinema" />Cinema</h1>
+        <hr />
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li>
+                    <a href="./now-showing.html">Now Showing</a>
+                </li>
+                <li>
+                    <a href="./ticket.html">Ticket</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="block">
+
+            <div class="card">
+                <div class="title">Event Handlers</div>
+                <div class="subcards">
+                    <div class="card">
+                        <div class="title">On Ended Event</div>
+                        <image src="./asset/onended.jpg"></image>
+                        <div class="description">
+                            When at the end of video playing, wait for 2 seconds and switch to the next movie.
+                            The event handler will direct the event to next movie
+                            Which are scripted in ./index.html
+                        </div>
+                        <image src="./asset/onended-script.jpg"></image>
+                    </div>
+                    <div class="card">
+                        <div class="title">On Change Event</div>
+                        <image src="./asset/onchange.jpg"></image>
+                        <div class="description">
+                            When change the value of select option box
+                            The event handler will change the movie of movie list
+                            Which are scripted in ./now-showing.html
+                        </div>
+                        <image src="./asset/onchange-script.jpg"></image>
+                    </div>
+                    <div class="card">
+                        <div class="title">On Click Event</div>
+                        <image src="./asset/onclick.jpg"></image>
+                        <div class="description">
+                            When click the seat of the seating plan
+                            The event handler will change the background of the colors
+                            Which are scripted in ./ticket.html
+                        </div>
+                        <image src="./asset/onclick-script.jpg"></image>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">Script Structure Handlers</div>
+                <image src="./asset/script-structure.jpg"></image>
+                <div class="description">
+                    External: those scripts are repeated usage or remoted host,
+                    Inline scripts: event Handlers,
+                    Embedded: other scripts which are used and not included 
+                </div>
+            </div>
+            <div class="card">
+                <image src="./asset/home.png"></image>
+                <div class="title">Home Page</div>
+            </div>
+            <div class="card">
+                <image src="./asset/now_showing.png"></image>
+                <div class="title">Now-Showing Page</div>
+            </div>
+            <div class="card">
+                <image src="./asset/ticket.png"></image>
+                <div class="title">Ticket Page</div>
+            </div>
+            <div class="card">
+                <image src="./asset/print.png"></image>
+                <div class="title">Print Page</div>
+            </div>
+            <div class="card">
+                <image src="./asset/print_print.jpg"></image>
+                <div class="title">Print(Printing) Page</div>
+            </div>
+            <div class="card">
+                <div class="title">CSS Group</div>
+                <div class="">
+                    There are a total of 10 style sheets (.css) and divide into 3 groups (Control style, Component style
+                    and Page style)
+
+                    <h3>Control Style</h3>
+                    <ul>
+                        <li>webpage.css</li>
+                    </ul>
+
+                    <h3>Component Style</h3>
+                    <ul>
+                        <li>global.css</li>
+                        <li>header.css</li>
+                        <li>footer.css</li>
+                        <li>layout.css</li>
+                        <li>card.css</li>
+                    </ul>
+
+                    <h3>Page Style</h3>
+                    <ul>
+                        <li>index.css</li>
+                        <li>now-showing.css</li>
+                        <li>ticket.css</li>
+                        <li>print.css</li>
+                    </ul>
+                    <div>
+                        <h3>Control Style</h3>
+                        <div>
+                            webpage.css used for import all other .css file so we can write only one line in html file
+                        </div>
+                        <div>
+                            &lt;link href="css/webpage.css" rel="stylesheet" type="text/css" /&gt;
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Component Style</h3>
+                        <div>
+                            Those are used for all pages common style.
+                        </div>
+                        <div>
+                            e.g. layout, header, footer, card, block, content
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Page Style</h3>
+                        <div>
+                            Those are used for all pages specific style to make sure the page is fit the design.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">CSS3 Features</div>
+                <div class="subcards">
+                    <div class="card">
+                        <div class="title">Blur</div>
+                        <img src="./asset/blur.jpg" />
+                        <img src="./asset/blurcss.jpg" />
+                        <div class="description">
+                            Used { filter: blur(5px); }
+
+                            now-showing.css file at line 19 ~ 29.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">Rounded Border</div>
+                        <img src="./asset/blur.jpg" />
+                        <img src="./asset/blurcss.jpg" />
+                        <div class="description">
+                            Used { border-radius: 10px; }
+
+                            now-showing.css file at line 19 ~ 29.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">Box Shadow</div>
+                        <img src="./asset/box-shadow.jpg" />
+                        <img src="./asset/box-shadowcss.jpg" />
+                        <div class="description">
+                            Used { box-shadow: 0 0 10px 2px rgb(238, 238, 238) }
+
+                            card.css file at line 23 ~ 34.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">Animation</div>
+                        <img src="./asset/animation.jpg" />
+                        <img src="./asset/animationcss.jpg" />
+                        <div class="description">
+                            Used { @keyframes requirement {...} and animation-name: requirement;}
+
+                            header.css file at line 82 ~ 90.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">Polygon</div>
+                        <img src="./asset/polygon.jpg" />
+                        <img src="./asset/polygoncss.jpg" />
+                        <div class="description">
+                            Used { clip-path: polygon(...);}
+
+                            layout.css file at line 1 ~ 15.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="title">Gradient</div>
+                        <img src="./asset/gradientcss.jpg" />
+                        <div class="description">
+                            Used { background-image: linear-gradient(...);}
+
+                            global.css file at line 17 ~ 26.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">Acknowledge</div>
+                <div class="description">
+                    https://commons.wikimedia.org/wiki/Main_Page/
+                    https://www.w3schools.com/
+                    https://courses.cs.cityu.edu.hk/cs2204/
+                    https://www.google.com.hk/maps/ (For Now Showing Page cinmas map image)
+                </div>
+            </div>
+            <div class="card">
+                <image src="./asset/header.jpg"></image>
+                <div class="title">Header</div>
+                <div class="subcards">
+                    <div class="card">
+                        <image src="./asset/headercss1.jpg"></image>
+                        <div class="title">Sticky Header</div>
+                        <div class="description">
+                            Used { position: sticky; } in header.
+
+                            1. It makes the position of header fixed in its position so that they will be visible to the
+                            user forever. User does not need to scoll up or down to click the logo of header.
+
+                            2. For header, { top: 0; } is used to position the header at the top of the page. Those
+                            codes are shown in "global.css" file at line 10 ~ 16 for header.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <image src="./asset/headercss2.jpg"></image>
+                        <image src="./asset/headercss3.jpg"></image>
+                        <div class="title">Disable Button</div>
+                        <div class="description">
+                            Used { cursor: default; } in disabled a.
+
+                            1. It makes the cursor of a became in default cursor pointer
+
+                            Used { pointer-events: none; } in a.
+
+                            1. It disable all pointer events of a such as hover, active etc.
+
+                            Those codes are shown in "header.css" file at line 67 ~ 80 for disabled a.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <image src="./asset/Footer.jpg"></image>
+                <div class="title">Footer</div>
+                <div class="subcards">
+                    <div class="card">
+                        <image src="./asset/footercss1.jpg"></image>
+                        <div class="title">Bottom Footer</div>
+                        <div class="description">
+                            Used { min-height: calc(100vh - footer's height);} in main block.
+
+                            1. It makes the position of footer always been the bottom of the page.
+
+                            Those codes are shown in "global.css" file at line 17 ~ 39 for header.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <image src="./asset/footercss2.jpg"></image>
+                        <div class="title">Center Footer Text</div>
+                        <div class="description">
+                            Used { text-align: center; } in footer.
+
+                            1. It makes the position of footer's text always been the center of the page.
+
+                            Those codes are shown in "footer.css" file at line 1 ~ 5 for header.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <span>
+            <p>Copyright©2020- City Cinema.</p>
+        </span>
+        <span><i>All right reserved.</i></span>
+        <br />
+        <span><a href="./index.html">Home</a> | <a href="./design.html">Design</a></span>
+    </footer>
+</body>
+
+</html>

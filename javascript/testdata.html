@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test cw3 data</title>
+    <script src="cinemas.js"></script>
+    <script src="movies.js"></script>
+    <script>
+        function getMovieName(movieArray, id) {
+            for (let i=0; i<movieArray.length; i++) {
+                if (movieArray[i].id == id) return movieArray[i].name;
+            }
+            return undefined;
+        }
+        //movies is an array of objects each containing info about a movie
+        let movies=getMovies();
+        //cinemas is an array of objects of cinema
+        //  each cinema object contains branch name and an array of objects of movies now showing
+        //  each movie object contains the movie id and an array of objects of shows
+        //  each show object contains the show index, date time and house no.
+        let cinemas=getCinemas();
+        for (let i=0; i<cinemas.length; i++) {
+            console.log(cinemas[i].branchName+"\n");
+            for (let j=0; j<cinemas[i].movies.length; j++) {
+                console.log("  movie id "+cinemas[i].movies[j].id+"\n");
+                console.log("  movie name " + getMovieName(movies, cinemas[i].movies[j].id));
+                for (let k=0; k<cinemas[i].movies[j].shows.length; k++) {
+                    console.log("    index "+cinemas[i].movies[j].shows[k].index+"\n");
+                    console.log("    datetime "+cinemas[i].movies[j].shows[k].datetime+"\n");
+                    console.log("    house "+cinemas[i].movies[j].shows[k].house+"\n\n");
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

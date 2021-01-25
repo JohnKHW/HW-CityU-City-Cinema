@@ -1,0 +1,9 @@
+main .block video {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px;
+}
+.list-cont{
+    flex-direction: row;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/webpage.css" rel="stylesheet" type="text/css">
+    <script src="javascript/movies.js"></script>
+    <title>Home - City Cinema</title>
+</head>
+
+<body>
+    <header>
+        <h1>City<img src="./asset/filmreel.png" alt="city cinema" />Cinema</h1>
+        <hr />
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html" class="disable">Home</a>
+                </li>
+                <li>
+                    <a href="./now-showing.html">Now Showing</a>
+                </li>
+                <li>
+                    <a href="./ticket.html">Ticket</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="video" class="block">
+            <span class="title"><b>Trailer: <cite id="title">Casablanca</cite></b></span>
+            <video id="videoBlock" onended="next()" controls>
+            </video>
+        </div>
+        <div class="content list-cont">
+            <p class="title">List of moives</p>
+            <div>
+                <p class="subtitle">Now Showing</p>
+                <div id="now-show">
+                </div>
+            </div>
+            <div>
+                <p class="subtitle">Up Coming</p>
+                <div id="up-come">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <span>Copyright©2020- City Cinema.</span>
+        <span><i>All right reserved.</i></span>
+        <br />
+        <span><a href="./index.html">Home</a> | <a href="./design.html">Design</a></span>
+    </footer>
+    <script>
+        let currId = 0;
+        //let time = setInterval()
+        let videoBlock = document.getElementById('videoBlock')
+
+        const data = classify();
+        var element_nowshow = document.getElementById('now-show');
+        var element_upcoming = document.getElementById('up-come');
+
+        for (let i = 0; i < data.length; ++i) {
+            if (data[i].type == "now") {
+                element_nowshow.innerHTML += MovieComponent(data[i], i);
+            } else if (data[i].type == "upcoming") {
+                element_upcoming.innerHTML += MovieComponent(data[i], i);
+            }
+        }
+
+        videoBlock.innerHTML = VideoBlock(currId++ % data.length);
+
+        function playVideo() {
+            videoBlock.pause();
+            videoBlock.innerHTML = VideoBlock(currId++ % data.length);
+            videoBlock.load();
+            videoBlock.play();
+        }
+
+        function next() {
+            setTimeout(playVideo, 2000);
+        }
+
+        function changeVideo(id) {
+            currId = id;
+            playVideo();
+        }
+
+        function classify() {
+            let now = getMovies().filter((m) => m.type == "now");
+            let upcoming = getMovies().filter((m) => m.type == "upcoming");
+            return now.concat(upcoming);
+        }
+
+        function VideoBlock(id) {
+            document.getElementById("title").innerHTML = data[id].name
+
+            let template =
+                `<source src="${ data[id].src }.mp4" type="video/mp4" />
+                <source src="${ data[id].src }.ogg" type="video/ogg" />`
+            return template;
+        }
+
+        function MovieComponent(data, index) {
+            let template =
+                `<div class='card' id="mov${data.id}" onclick="changeVideo(${index})"><div class="thumbnail"><img src="./asset/${data.thumbnail}" alt="${data.name} icon" /></div><div class="info">`;
+            template += `<div class="title">Name: ${data.name}</div>`;
+            if (data.cast) template += `<div><div class="type">Cast:</div><div class="data">${data.cast}</div></div>`;
+            if (data.director) template +=
+                `<div><div class="type">Directed:</div><div class="data">${data.director}</div></div>`;
+            if (data.duration) template +=
+                `<div><div class="type">Duration:</div><div class="data">${data.duration} mins</div></div>`;
+            template += `</div></div>`;
+
+            return template;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+header{
+    background-color: rgb(0, 81, 255);
+    background-image: linear-gradient(
+        75deg,
+        #13547a,
+        #80d0c7 
+        );
+}
+header h1 {
+    text-align: center;
+}
+header ul {
+    list-style: none;
+}
+header ul li {
+    position: relative;
+    width: 300px; 
+    height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 5px;
+}
+header a {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgb(68, 68, 68);
+    left: 0;
+    top: 0;
+    text-decoration: none; 
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 20px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: all 0.5s;
+    box-shadow: 0 0 0 rgb(238, 238, 238);
+}
+header li a::before,
+header li a::after{
+    content: '';
+    height: 3px;
+    width: 0;
+    background-color: #00700B;
+    position: absolute;
+    transition: all 0.5s;
+}
+header li a::before{
+    top: 0;
+    left: 0;
+}
+header li a::after{
+    bottom: 0;
+    right: 0;
+}
+
+header li:hover a {
+    background-color: rgb(73, 158, 158);
+}
+header li:hover a::before,
+header li:hover a::after,
+header li a[disabled]::before,
+header li a[disabled]::after{
+    width: 100%;
+}
+header li a:hover,
+header li a[disabled] {
+    transform: translateX(16px);
+    transition-duration: 0s;
+    color: #000;
+    transform: translateX(30px) translateY(10px);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.disable{
+    cursor: default;
+    pointer-events: none;
+    background-color: rgb(100, 215, 215) !important;
+}
+
+@keyframes requirement {
+    from { margin-left: -300px; transform: rotate(360deg);}
+    to { margin-left: 0px; }
+}
+header img {
+    animation-name: requirement;
+    animation-duration: 3s;
+    animation-timing-function: ease;
+}

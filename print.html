@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/webpage.css" rel="stylesheet" type="text/css">
+    <script src="javascript/movies.js"></script>
+    <script src="https://courses.cs.cityu.edu.hk/cs2204/cw3/cinemas.js"></script>
+    <script src="javascript/dataformat.js"></script>
+    <title>Print - City Cinema</title>
+</head>
+
+<body>
+    <header>
+        <h1>City<img src="./asset/filmreel.png" alt="city cinema" />Cinema</h1>
+        <hr />
+        <nav>
+            <ul>
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li>
+                    <a href="./now-showing.html">Now Showing</a>
+                </li>
+                <li>
+                    <a href="./ticket.html">Ticket</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="printShow" id="printShow">
+        </div>
+    </main>
+    <footer>
+        <span>Copyright©2020- City Cinema.</span>
+        <span><i>All right reserved.</i></span>
+        <br />
+        <span><a href="./index.html">Home</a> | <a href="./design.html">Design</a></span>
+    </footer>
+    <script>
+        const queryString = getJson();
+        let tickets = getResult(queryString.index);
+
+        loadTicket();
+
+        function getJson() {
+            let url = new URL(window.location.href);
+            let params = url.search.substring(1);
+            if (url.length == 0) {
+                window.location.replace("./index.html");
+            }
+            let data = {};
+            data.movie = url.searchParams.get('movie');
+            data.seat = url.searchParams.get('seat');
+            data.index = url.searchParams.get('index');
+
+            return data
+        }
+
+        function loadTicket() {
+            let seat = queryString.seat.split(',');
+            let printShow = document.getElementById("printShow");
+            if (seat[0] == "") window.location.replace("./index.html");
+            for (let i = 0; i < seat.length; i++) {
+                printShow.innerHTML += TicketComponent(seat[i]);
+                if (i < seat.length) printShow.innerHTML += `<div class="printBreak"></div>`;
+            }
+        }
+
+        function TicketComponent(seat) {
+            let template =
+                `<div class="content print">
+                <div class="title">${ tickets.name }</div>
+                <div class="content">
+                    <div>
+                        <div class="type">Seat:</div>
+                        <div class="data">${ seat }</div>
+                    </div>
+                    <div>
+                        <div class="type">Cinema:</div>
+                        <div class="data">${ tickets.branchName }</div>
+                    </div>
+                    <div>
+                        <div class="type">House:</div>
+                        <div class="data">${ tickets.house }</div>
+                    </div>
+                    <div>
+                        <div class="type">Date&Time:</div>
+                        <div class="data">${ tickets.datetime }</div>
+                    </div>
+                </div>
+            </div>`;
+
+            return template;
+        }
+    </script>
+</body>
+
+</html>
